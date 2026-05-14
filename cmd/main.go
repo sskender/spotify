@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"log"
 
 	"github.com/sskender/spotify/pkg/auth"
@@ -45,15 +44,13 @@ func handler(ctx context.Context, request events.LambdaFunctionURLRequest) (even
 		}, nil
 	}
 
-	res, _ := json.Marshal(track)
-
 	return events.LambdaFunctionURLResponse{
 		StatusCode: 200,
 		Headers: map[string]string{
 			"Content-Type":                "application/json",
 			"Access-Control-Allow-Origin": "*",
 		},
-		Body: string(res),
+		Body: track.GenerateJson(),
 	}, nil
 }
 

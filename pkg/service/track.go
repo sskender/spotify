@@ -1,11 +1,19 @@
 package service
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type NowPlayingTrack struct {
 	IsPlaying bool   `json:"is_playing"`
 	Title     string `json:"title,omitempty"`
 	Author    string `json:"author,omitempty"`
+}
+
+func (t *NowPlayingTrack) GenerateJson() string {
+	res, _ := json.Marshal(t)
+	return string(res)
 }
 
 func (t *NowPlayingTrack) GenerateSvg() string {
