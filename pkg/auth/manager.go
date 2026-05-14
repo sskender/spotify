@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"os"
+	"sync"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -18,6 +19,7 @@ type token struct {
 }
 
 type tokenManager struct {
+	lock       sync.Mutex
 	ctx        context.Context
 	session    *secretsmanager.Client
 	secretName string
@@ -69,10 +71,16 @@ func (m *tokenManager) GetClientSecret() string {
 }
 
 func (m *tokenManager) GetRefreshToken() string {
+	m.lock.Lock()
+	defer m.lock.Unlock()
+
 	return m.token.RefreshToken
 }
 
 func (m *tokenManager) RotateRefreshToken(newToken string) error {
+	m.lock.Lock()
+	defer m.lock.Unlock()
+
 	if m.token.RefreshToken == newToken {
 		return nil
 	}
