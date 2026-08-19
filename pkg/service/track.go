@@ -9,6 +9,7 @@ type NowPlayingTrack struct {
 	IsPlaying bool   `json:"is_playing"`
 	Title     string `json:"title,omitempty"`
 	Author    string `json:"author,omitempty"`
+	Link      string `json:"link,omitempty"`
 }
 
 func (t *NowPlayingTrack) GenerateJson() string {

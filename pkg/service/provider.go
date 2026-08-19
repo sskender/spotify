@@ -44,6 +44,7 @@ func (p *Provider) GetNowPlayingTrack() NowPlayingTrack {
 		IsPlaying: spotifyTrack.IsPlaying,
 		Title:     spotifyTrack.Item.Name,
 		Author:    strings.Join(artists, ", "),
+		Link:      spotifyTrack.Item.ExternalURLs["spotify"],
 	}
 
 	p.cache.Set(track)

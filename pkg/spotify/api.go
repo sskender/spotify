@@ -23,8 +23,9 @@ type SpotifyTrackArtist struct {
 }
 
 type SpotifyTrackItem struct {
-	Name    string               `json:"name"`
-	Artists []SpotifyTrackArtist `json:"artists"`
+	Name         string               `json:"name"`
+	Artists      []SpotifyTrackArtist `json:"artists"`
+	ExternalURLs map[string]string    `json:"external_urls"`
 }
 
 type SpotifyTrackData struct {
