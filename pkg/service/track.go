@@ -3,6 +3,7 @@ package service
 import (
 	"encoding/json"
 	"fmt"
+	"html"
 )
 
 type NowPlayingTrack struct {
@@ -21,7 +22,7 @@ func (t *NowPlayingTrack) GenerateSvg() string {
 	if !t.IsPlaying {
 		return SVG_TEMPLATE_NOT_PLAYING
 	}
-	return fmt.Sprintf(SVG_TEMPLATE, t.Title, t.Author)
+	return fmt.Sprintf(SVG_TEMPLATE, html.EscapeString(t.Title), html.EscapeString(t.Author))
 }
 
 const SVG_TEMPLATE string = `
